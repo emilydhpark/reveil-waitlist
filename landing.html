@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Waiting+for+the+Sunrise" rel="stylesheet" type="text/css"/>
+
+    <title>Landing</title>
+    <style>
+        body {
+            font-family: 'Calibri', sans-serif;
+            background-color: rgb(21, 21, 21);
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+            padding-top: 50px; /* Adjusted the content padding */
+        }
+
+        .transparent-box {
+            background-color: rgba(30, 30, 30, 0.6);
+            color: white;
+            border-radius: 10px;
+            padding: 20px 30px;
+            border: 1px solid rgb(128, 128, 128);
+            font-size: 1em;
+            text-align: center;
+            width: 300px;
+        }
+
+        input {
+            background-color: rgba(60, 60, 60, 0.9);
+            color: white;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 1px solid rgba(128, 128, 128, 0.5);
+            /* font-family: 'Waiting for the Sunrise', cursive;*/
+            font-family: 'Calibri', sans-serif;
+            font-size: 1em;
+            width: 53%;
+            text-align: center; 
+        }
+
+        input:focus {
+            outline: none; /* Don't let it move to second lines */
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            border-radius: 10px;
+            border: none;
+            background-color: #aaa2ff; /* Pastel blue */
+            color: black;
+            font-family: 'Calibri', sans-serif;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        .subtitle {
+            font-family: 'Waiting for the Sunrise', cursive; /* Using the desired font */
+            font-size: 4em; /* Adjusting the font size */
+            color: white;
+            position: absolute; /* Positioning it absolutely */
+            top: 220px; /* Bringing it closer to the transparent box */
+            left: 50%; /* Centering it horizontally */
+            transform: translateX(-50%); /* Ensuring it stays centered */
+            overflow: hidden; 
+            white-space: nowrap; /* Preventing the content from wrapping to the next line */
+        }
+
+        .top-left-title {
+            position: absolute;
+            top: 30px;
+            left: 40px;
+            font-size: 2em;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-left-title">
+        Reveil
+    </div>
+    <div class="subtitle">
+        <!-- This will display the typing messages -->
+    </div>
+    <div class="transparent-box">
+        <input type="text" placeholder="First and Last Name">
+        <input type="text" placeholder="Phone Number">
+        <button>Join Waitlist</button>
+    </div>
+
+    <script>
+        const messages = [
+            { text: "An Engine for Imagination", icon: "<i class='fas fa-star'></i>" },
+            { text: "Capture your messy life", icon: null },
+            { text: "Dumbledore’s pensieve", icon: "<i class='fas fa-magic'></i>" },
+            { text: "Rant to your inner circles", icon: null }
+        ];
+        
+        let currentMessageIndex = 0;
+        const subtitle = document.querySelector('.subtitle');
+
+        function typeMessage({ text, icon }) {
+            let index = 0;
+            let chars = text.split("");
+
+            if (icon) {
+                subtitle.innerHTML = icon + " ";  // Add the icon first if it exists
+            }
+
+            const typingInterval = setInterval(() => {
+                subtitle.innerHTML += chars[index];
+                index++;
+
+                if (index === chars.length) {
+                    clearInterval(typingInterval);
+                    setTimeout(() => {
+                        subtitle.innerHTML = "";
+                        nextMessage();
+                    }, 2000);
+                }
+            }, 100);
+        }
+
+
+        function nextMessage() {
+            if (currentMessageIndex >= messages.length) {
+                currentMessageIndex = 0;
+            }
+            typeMessage(messages[currentMessageIndex]);
+            currentMessageIndex++;
+        }
+
+        nextMessage(); // Start the typing effect
+    </script>
+</body>
+</html>
